@@ -25,7 +25,7 @@ cargo run --release
 The program recovers under these situations:
 - An API call (if the program is listening on a port)
 - Specifically _detaching_ `gdb` (Attaching does not wake it)
-- Others? (waiting on confirmation for whether it is awoken by a syscall e.g. SIGURG)
+- Others? (waiting on confirmation for whether it is awoken by Unix signals e.g. SIGURG)
 
 ## Other Notes
 
