@@ -31,7 +31,7 @@ The program recovers under these situations:
 
 - Running an additional single non-sleeping task appears to cause the issue to occur much more frequently. This task also runs at 100% CPU during the freeze.
 - It occurs on both Intel and AMD CPUs
-- It _seems_ that machines with 4 threads or less are unable to reproduce it.
+- It _seems_ that machines with 2 threads or less are unable to reproduce it.
 - Machines with more CPU cores/threads take longer to reproduce it.
 - Removing the call to `tokio::time::sleep` prevents the freeze from ever happening.
 - I didn't check older versions of Tokio but I can confirm it occurs on `1.45.0` and on `1.1.1`.
