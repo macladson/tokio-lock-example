@@ -12,7 +12,11 @@ By sending certains signals to the process, it wakes up and resumes all tasks.
 
 ## What Happens
 
-- The program halts, and all tasks stop
+```
+cargo run --release
+```
+
+- Eventually the program halts, and all tasks stop
 - One task enters a spinlock (100% CPU usage)
 - All other tasks have 0% CPU usage
 
@@ -26,7 +30,10 @@ The program recovers under these situations:
 ## Other Notes
 
 - Running an additional single non-sleeping task appears to cause the issue to occur much more frequently. This task also runs at 100% CPU during the freeze.
+- It occurs on both Intel and AMD CPUs
 - It _seems_ that machines with 4 threads or less are unable to reproduce it.
 - Machines with more CPU cores/threads take longer to reproduce it.
 - Removing the call to `tokio::time::sleep` prevents the freeze from ever happening.
 - I didn't check older versions of Tokio but I can confirm it occurs on `1.45.0` and on `1.1.1`.
+
+Backtrace during frozen state is available here: https://gist.github.com/macladson/88a4bcf51e5e2630dd2183f53a4ff4b9
