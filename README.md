@@ -2,8 +2,8 @@
 
 This is a minimal reproduction of an issue involving the Tokio runtime and the latest Linux kernel versions.
 It only seems to occur in very specific scenarios:
-- It only occurs on certain 6.14.x Kernels (most of my testing was done on 6.14.4)
-- Running under Linux (I can confirm Arch Linux is affected. Other distros running newer kernels may also be affected)
+- It only occurs on certain 6.14.x Kernels (most of my testing was done on 6.14.6)
+- Running under Linux (I have reproduced it on Arch Linux, Debian experimental and Fedora 41)
 - Using `tokio::sync::Mutex`/`tokio::sync::RwLock`'s within many tasks.
 - Most/all tasks must have calls to `tokio::time::sleep`.
 
@@ -25,7 +25,8 @@ cargo run --release
 The program recovers under these situations:
 - An API call (if the program is listening on a port)
 - Specifically _detaching_ `gdb` (Attaching does not wake it)
-- Others? (waiting on confirmation for whether it is awoken by Unix signals e.g. SIGURG)
+- When the machine wakes from sleep/suspend
+- Others? 
 
 ## Other Notes
 
